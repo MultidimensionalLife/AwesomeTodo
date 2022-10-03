@@ -1,12 +1,12 @@
 /**
  * @format
- * @flow strict-local
+ * @flow
  */
 
 import React from 'react';
 
-import TodoPage from './components/pages/Todo/Todo.page';
+import TodoPage from '@components/pages/Todo';
 
-const App: () => Node = () => <TodoPage />;
+const App = (): React$Node => <TodoPage />;
 
 export default App;

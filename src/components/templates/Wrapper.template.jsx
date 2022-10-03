@@ -13,19 +13,34 @@ type WrapperPropTypes = {children: React$Node};
 const StyledView = styled.View`
   display: flex;
   flex: 1;
-  padding: 0 5px;
 `;
 
 const StyledSafeAreaView = styled.SafeAreaView`
-  background-color: #b1d4e0;
+  background-color: #eed6d3;
   display: flex;
   flex: 1;
+`;
+
+const StyledHeader = styled.View`
+  padding: 15px 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const StyledAppName = styled.Text`
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
 `;
 
 const Wrapper = ({children}: WrapperPropTypes): React$Node => {
   return (
     <StyledSafeAreaView>
       <StatusBar />
+      <StyledHeader>
+        <StyledAppName>TodoIt</StyledAppName>
+      </StyledHeader>
       <StyledView>{children}</StyledView>
     </StyledSafeAreaView>
   );
