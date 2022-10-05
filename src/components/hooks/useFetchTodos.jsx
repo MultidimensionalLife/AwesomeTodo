@@ -45,7 +45,7 @@ const useFetchTodos = (): useFetchTodosTypes => {
 
     saveTodoAsync(todos, newTodo).then((response) => {
       if (response) {
-        setTodos(todos.concat(newTodo));
+        setTodos([newTodo, ...todos]);
       }
     });
   };

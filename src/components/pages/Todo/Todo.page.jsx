@@ -46,14 +46,13 @@ const StyledToolbarContainer = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 5px;
+  padding: 5px 0;
 `;
 
 const StyledInput = styled.TextInput`
   display: flex;
   flex: 1;
   padding: 3px;
-  border-radius: 3px;
   border: 1px solid #ddd;
   background-color: #fff;
 `;
@@ -114,6 +113,8 @@ const TodoPage = (): React$Node => {
           multiline
           onChangeText={(text) => onChangeText(text)}
           value={value}
+          placeholder="Add your Today's task."
+          autoFocus={false}
         />
         <StyledVerticalSeparator />
         <Button text="Save" onPress={handleOnAdd} />

@@ -41,7 +41,7 @@ const saveTodoAsync = async (
   try {
     await AsyncStorage.setItem(
       TODO_KEY,
-      JSON.stringify(pastTodos.concat(newTodo)),
+      JSON.stringify([newTodo, ...pastTodos]),
     );
 
     return true;
