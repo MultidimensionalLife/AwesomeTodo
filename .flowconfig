@@ -43,6 +43,7 @@ module.name_mapper='^@molecules/\(.*\)$' -> '<PROJECT_ROOT>/src/components/molec
 module.name_mapper='^@organisms/\(.*\)$' -> '<PROJECT_ROOT>/src/components/organisms/\1'
 module.name_mapper='^@templates/\(.*\)$' -> '<PROJECT_ROOT>/src/components/templates/\1'
 module.name_mapper='^@pages/\(.*\)$' -> '<PROJECT_ROOT>/src/components/pages/\1'
+module.name_mapper='^@utils/\(.*\)$' -> '<PROJECT_ROOT>/src/utils/\1'
 
 module.name_mapper='^react-native/\(.*\)$' -> '<PROJECT_ROOT>/node_modules/react-native/\1'
 module.name_mapper='^@?[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|webp\|m4v\|mov\|mp4\|mpeg\|mpg\|webm\|aac\|aiff\|caf\|m4a\|mp3\|wav\|html\|pdf\)$' -> '<PROJECT_ROOT>/node_modules/react-native/Libraries/Image/RelativeImageStub'

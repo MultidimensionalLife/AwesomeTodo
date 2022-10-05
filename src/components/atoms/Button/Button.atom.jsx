@@ -8,7 +8,7 @@ import styled from 'styled-components/native';
 
 const StyledButtonContainer = styled.TouchableOpacity`
   background-color: ${(props) =>
-    props.disabled ? 'rgba(12, 45, 72, 0.5)' : '#67595E'};
+    props.disabled ? 'rgba(12, 45, 72, 0.5)' : '#FF4500'};
   display: flex;
   align-self: baseline;
   padding: 10px 15px;

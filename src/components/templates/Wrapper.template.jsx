@@ -13,10 +13,11 @@ type WrapperPropTypes = {children: React$Node};
 const StyledView = styled.View`
   display: flex;
   flex: 1;
+  padding: 0 10px;
 `;
 
 const StyledSafeAreaView = styled.SafeAreaView`
-  background-color: #eed6d3;
+  background-color: #eaeff2;
   display: flex;
   flex: 1;
 `;

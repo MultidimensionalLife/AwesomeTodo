@@ -2,7 +2,9 @@
  * @flow
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
+
+import {ActivityIndicator, Alert} from 'react-native';
 
 import Wrapper from '@templates/Wrapper.template';
 
@@ -10,21 +12,9 @@ import Button from '@components/atoms/Button/Button.atom';
 
 import styled from 'styled-components/native';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title:
-      'First Item asdasd asd asdasdasdadssdsdasdasdsadsadsadsadsadsadasdsqdsadasdasdasd asdasdasdasdasdasdasdasd',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
+// import * as LocalAuthentication from 'expo-local-authentication';
+
+import useFetchTodos from '@components/hooks/useFetchTodos';
 
 const StyledFlatList = styled.FlatList``;
 
@@ -53,24 +43,58 @@ const StyledVerticalSeparator = styled.View`
 `;
 
 const TodoPage = (): React$Node => {
+  const {fetchTodos, isFetching, todos, addTodo, removeTodoById} =
+    useFetchTodos();
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
   const renderItem = ({item}) => (
     <StyledRowContainer>
       <StyledRowLeftContainer>
-        <StyledRowText>{item.title}</StyledRowText>
+        <StyledRowText>{item.description}</StyledRowText>
       </StyledRowLeftContainer>
       <StyledVerticalSeparator />
-      <Button text="Done" onPress={() => alert(1)} />
+      <Button
+        text="Done"
+        onPress={() => {
+          Alert.alert('Mark as done', 'Are you sure to remove this item?', [
+            {
+              text: 'No',
+            },
+            {
+              text: 'Yes',
+              onPress: () => removeTodoById(item.id),
+            },
+          ]);
+        }}
+      />
     </StyledRowContainer>
   );
 
+  const handleOnRefresh = () => fetchTodos();
+
+  const handleOnAdd = () => addTodo('Testing');
+
+  if (isFetching)
+    return (
+      <Wrapper>
+        <ActivityIndicator />
+      </Wrapper>
+    );
+
   return (
     <Wrapper>
+      <Button text="new" onPress={handleOnAdd} />
       <StyledFlatList
-        data={DATA}
+        data={todos}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={StyledSeparator}
         ItemSeparatorComponent={StyledSeparator}
+        refreshing={isFetching}
+        onRefresh={handleOnRefresh}
       />
     </Wrapper>
   );
