@@ -2,7 +2,7 @@
  * @flow
  */
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {ActivityIndicator, Alert} from 'react-native';
 
@@ -42,9 +42,27 @@ const StyledVerticalSeparator = styled.View`
   width: 10px;
 `;
 
+const StyledToolbarContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
+`;
+
+const StyledInput = styled.TextInput`
+  display: flex;
+  flex: 1;
+  padding: 3px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+`;
+
 const TodoPage = (): React$Node => {
   const {fetchTodos, isFetching, todos, addTodo, removeTodoById} =
     useFetchTodos();
+
+  const [value, onChangeText] = useState('');
 
   useEffect(() => {
     fetchTodos();
@@ -75,7 +93,12 @@ const TodoPage = (): React$Node => {
 
   const handleOnRefresh = () => fetchTodos();
 
-  const handleOnAdd = () => addTodo('Testing');
+  const handleOnAdd = () => {
+    if (value !== '') {
+      addTodo(value);
+      onChangeText('');
+    }
+  };
 
   if (isFetching)
     return (
@@ -86,7 +109,15 @@ const TodoPage = (): React$Node => {
 
   return (
     <Wrapper>
-      <Button text="new" onPress={handleOnAdd} />
+      <StyledToolbarContainer>
+        <StyledInput
+          multiline
+          onChangeText={(text) => onChangeText(text)}
+          value={value}
+        />
+        <StyledVerticalSeparator />
+        <Button text="Save" onPress={handleOnAdd} />
+      </StyledToolbarContainer>
       <StyledFlatList
         data={todos}
         renderItem={renderItem}
