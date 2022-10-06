@@ -3,7 +3,6 @@
  */
 import React, {
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useState,
@@ -54,8 +53,6 @@ export const AuthProvider = ({
   const logout = () => {
     setAuthenticated(false).then((response) => {
       if (response) setIsLogin(false);
-
-      return;
     });
   };
 
