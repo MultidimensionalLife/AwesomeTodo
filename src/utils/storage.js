@@ -12,6 +12,26 @@ type ResponseType = {
 };
 
 const TODO_KEY = '@TODO';
+const AUTH_KEY = '@AUTH';
+
+const setAuthenticated = async (state: boolean = true): Promise<boolean> => {
+  try {
+    await AsyncStorage.setItem(AUTH_KEY, JSON.stringify({isLogin: state}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+const isAuthenticated = async (): Promise<boolean> => {
+  try {
+    const jsonValue = await AsyncStorage.getItem(AUTH_KEY);
+
+    return jsonValue !== null && JSON.parse(jsonValue).isLogin ? true : false;
+  } catch (e) {
+    return false;
+  }
+};
 
 const getTodosAsync = async (): Promise<ResponseType> => {
   let response = {
@@ -66,4 +86,10 @@ const removeTodoAsync = async (
   }
 };
 
-export {getTodosAsync, saveTodoAsync, removeTodoAsync};
+export {
+  getTodosAsync,
+  saveTodoAsync,
+  removeTodoAsync,
+  setAuthenticated,
+  isAuthenticated,
+};

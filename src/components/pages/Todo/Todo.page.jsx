@@ -12,8 +12,6 @@ import Button from '@components/atoms/Button/Button.atom';
 
 import styled from 'styled-components/native';
 
-// import * as LocalAuthentication from 'expo-local-authentication';
-
 import useFetchTodos from '@components/hooks/useFetchTodos';
 
 const StyledFlatList = styled.FlatList``;
@@ -57,6 +55,25 @@ const StyledInput = styled.TextInput`
   background-color: #fff;
 `;
 
+const StyledListEmptyContainer = styled.View`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+`;
+
+const SyledListEmptyText = styled(StyledRowText)`
+  color: #888;
+`;
+
+const EmptyComponent = () => {
+  return (
+    <StyledListEmptyContainer>
+      <SyledListEmptyText>Your list is empty!</SyledListEmptyText>
+    </StyledListEmptyContainer>
+  );
+};
+
 const TodoPage = (): React$Node => {
   const {fetchTodos, isFetching, todos, addTodo, removeTodoById} =
     useFetchTodos();
@@ -78,10 +95,12 @@ const TodoPage = (): React$Node => {
         onPress={() => {
           Alert.alert('Mark as done', 'Are you sure to remove this item?', [
             {
-              text: 'No',
+              text: 'Cancel',
+              style: 'cancel',
             },
             {
-              text: 'Yes',
+              text: 'Mark as done',
+              style: 'destructive',
               onPress: () => removeTodoById(item.id),
             },
           ]);
@@ -127,6 +146,7 @@ const TodoPage = (): React$Node => {
         ItemSeparatorComponent={StyledSeparator}
         refreshing={isFetching}
         onRefresh={handleOnRefresh}
+        ListEmptyComponent={EmptyComponent}
       />
     </Wrapper>
   );

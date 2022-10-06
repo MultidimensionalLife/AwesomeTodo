@@ -6,7 +6,10 @@ import React from 'react';
 
 import {StatusBar} from 'react-native';
 
+import Button from '@components/atoms/Button';
 import styled from 'styled-components/native';
+
+import useAuth from '@components/hooks/useAuth';
 
 type WrapperPropTypes = {children: React$Node};
 
@@ -36,11 +39,14 @@ const StyledAppName = styled.Text`
 `;
 
 const Wrapper = ({children}: WrapperPropTypes): React$Node => {
+  const {logout} = useAuth();
+
   return (
     <StyledSafeAreaView>
       <StatusBar />
       <StyledHeader>
         <StyledAppName>TodoIt</StyledAppName>
+        <Button text="Logout" onPress={logout} />
       </StyledHeader>
       <StyledView>{children}</StyledView>
     </StyledSafeAreaView>
